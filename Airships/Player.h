@@ -33,7 +33,6 @@ private:
 	void shoot(sf::RenderTarget* target);
 	void updateInput(sf::RenderTarget* target);
 	void boundaryDetection(sf::RenderTarget* target);
-	void updateSprite();
 
 	AirCannon* airCannonPtr;
 

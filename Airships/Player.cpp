@@ -27,10 +27,6 @@ void Player::initializeSprite()
 
 }
 
-void Player::updateSprite()
-{
-
-}
 
 void Player::moveUp()
 {
