@@ -25,6 +25,7 @@ void Game::initializeWindow()
 }
 
 
+
 Game::Game()
 {
 	this->initializeVariables();
@@ -41,6 +42,11 @@ Game::~Game()
 
 void Game::updatePollEvents()
 {
+	/*
+	@return void
+
+	- Event polling
+	*/
 	while (this->gamewindow->pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed)
@@ -50,6 +56,11 @@ void Game::updatePollEvents()
 
 void Game::updateBullet()
 {
+	/*
+	@return void
+
+		- Loops through the projectile array and calls the objects update method.
+	*/
 	for (int i = 0; i < this->player.airCannonProjectiles.size(); i++)
 	{
 		this->player.airCannonProjectiles[i]->update();
@@ -57,8 +68,15 @@ void Game::updateBullet()
 }
 
 
+
 void Game::update()
 {
+	/*
+		@return void
+
+		- Updates every frame.
+	*/
+
 	this->updatePollEvents();
 	this->updateBullet();
 	this->userInterface.update(this->player);
@@ -68,6 +86,14 @@ void Game::update()
 
 void Game::renderBullet()
 {
+	/*
+		@return void
+
+		- For every projectile stored in the container, draw the sprite.
+		- if the Y position is less than 0 (out of bounds), delete the instantiated object.
+		- Erase the object from the vector container
+	*/
+
 		for (int i = 0; i < this->player.airCannonProjectiles.size(); i++)
 		{
 			gamewindow->draw(this->player.airCannonProjectiles[i]->airCannonSprite);
@@ -82,16 +108,28 @@ void Game::renderBullet()
 
 void Game::render()
 {
+
+	/*
+	@return void
+
+		- Main method for rendering
+	*/
+
 	this->gamewindow->clear();
 	this->gamewindow->draw(this->worldBackground);
 	this->userInterface.renderUI(this->gamewindow);
-	this->gamewindow->draw(player.playerSprite);
 	this->renderBullet();
+	this->gamewindow->draw(player.playerSprite);
 	this->gamewindow->display();
 
 }
 
 bool Game::getIsWindowOpen()
 {
+	/*
+	@return bool
+
+		- returns whether the window is open. Used for looping in Main.cpp
+	*/
 	return this->gamewindow->isOpen();
 }

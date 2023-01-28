@@ -33,7 +33,7 @@ private:
 	void moveDown();
 	void moveRight();
 	void moveLeft();
-	void shoot(sf::RenderTarget* target);
+	void shoot();
 	void updateInput(sf::RenderTarget* target);
 	void boundaryDetection(sf::RenderTarget* target);
 

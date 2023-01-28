@@ -25,6 +25,18 @@ void Player::initializeSprite()
 
 }
 
+Player::Player()
+{
+	this->initializeTexture();
+	this->initializeSprite();
+	this->initializeVariables();
+
+}
+
+Player::~Player()
+{
+	
+}
 
 void Player::moveUp()
 {
@@ -46,7 +58,7 @@ void Player::moveLeft()
 	this->playerSprite.move(sf::Vector2f(-horizontalVelocity, 0.0f));
 }
 
-void Player::shoot(sf::RenderTarget* target)
+void Player::shoot()
 {
 	if (this->airCannonDelay <= 0) {
 		AirCannon* airCannonPtr = new AirCannon();
@@ -84,7 +96,7 @@ void Player::updateInput(sf::RenderTarget* target)
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		this->shoot(target);
+		this->shoot();
 	}
 
 }
@@ -100,7 +112,7 @@ void Player::getPlayerPos()
 
 void Player::boundaryDetection(sf::RenderTarget* target)
 {
-	
+
 	//LEFT
 	if (this->playerSprite.getPosition().x <= 0.0f) {
 		this->playerSprite.setPosition(sf::Vector2f(0.0f, this->playerSprite.getPosition().y));
@@ -122,19 +134,6 @@ void Player::boundaryDetection(sf::RenderTarget* target)
 	}
 
 
-}
-
-Player::Player()
-{
-	this->initializeTexture();
-	this->initializeSprite();
-	this->initializeVariables();
-
-}
-
-Player::~Player()
-{
-	
 }
 
 void Player::update(sf::RenderTarget* target)

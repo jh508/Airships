@@ -4,7 +4,7 @@
 
 void AirCannon::initializeTexture()
 {
-	this->airCannonTexture.loadFromFile("Sprites/zapper.png");
+	this->airCannonTexture.loadFromFile("Sprites/airCannon.png");
 }
 
 void AirCannon::initializeSprite()
@@ -14,7 +14,7 @@ void AirCannon::initializeSprite()
 
 void AirCannon::initializeVariables()
 {
-	this->projectileSpeed = 2.0f;
+	this->projectileSpeed = 2.5f;
 }
 
 
