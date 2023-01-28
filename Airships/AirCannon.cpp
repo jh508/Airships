@@ -14,7 +14,7 @@ void AirCannon::initializeSprite()
 
 void AirCannon::initializeVariables()
 {
-	this->projectileSpeed = 3.0f;
+	this->projectileSpeed = 2.0f;
 }
 
 
@@ -33,5 +33,5 @@ AirCannon::~AirCannon()
 
 void AirCannon::update()
 {
-	this->airCannonSprite.move(sf::Vector2f(0.0f, -1.0f));
+	this->airCannonSprite.move(sf::Vector2f(0.0f, -projectileSpeed));
 }

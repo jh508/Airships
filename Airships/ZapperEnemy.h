@@ -10,15 +10,10 @@ public:
 	ZapperEnemy();
 	~ZapperEnemy();
 
-	void Update();
+	
 
-	float verticalSpeed;
-	float randomNum;
-	float spawnInterval;
-	int damage = 1;
-
+	std::vector<ZapperEnemy*> zapperEnemyArray;
 	sf::Sprite zapperSprite;
-	std::vector<ZapperEnemy*> zapperArray;
 
 private:
 
@@ -28,6 +23,5 @@ private:
 	void initializeSprite();
 
 	sf::Texture zapperTexture;
-
 
 };

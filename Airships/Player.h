@@ -19,6 +19,9 @@ public:
 	void getPlayerPos();
 
 	std::vector<AirCannon*> airCannonProjectiles;
+
+	// Public variables
+	int lives;
 private:
 
 	void initializeVariables();
@@ -36,8 +39,6 @@ private:
 
 	AirCannon* airCannonPtr;
 
-	
-	
 
 	sf::Texture spriteTexture;
 	
@@ -48,7 +49,6 @@ private:
 	float playerXPos;
 	float playerYPos;
 	float airCannonDelay;
-	int lives;
 
 
 	// Resources

@@ -16,8 +16,6 @@ void Player::initializeTexture()
 	if (!this->spriteTexture.loadFromFile("\Sprites/MainShip.png")) {
 		std::cout << "Error loading sprite: MainShip.png";
 	}
-	
-
 }
 
 void Player::initializeSprite()

@@ -5,6 +5,17 @@ void Game::initializeVariables()
 {
 	this->airCannonPtr = nullptr;
 	this->gamewindow = nullptr;
+
+}
+
+void Game::initializeTexture()
+{
+	this->worldTexture.loadFromFile("Sprites/background.png");
+}
+
+void Game::initializeSprite()
+{
+	this->worldBackground.setTexture(this->worldTexture);
 }
 
 void Game::initializeWindow()
@@ -17,6 +28,8 @@ void Game::initializeWindow()
 Game::Game()
 {
 	this->initializeVariables();
+	this->initializeTexture();
+	this->initializeSprite();
 	this->initializeWindow();
 }
 
@@ -24,6 +37,7 @@ Game::~Game()
 {
 	delete this->gamewindow;
 }
+
 
 void Game::updatePollEvents()
 {
@@ -34,7 +48,7 @@ void Game::updatePollEvents()
 	}
 }
 
-void Game::UpdateBullet()
+void Game::updateBullet()
 {
 	for (int i = 0; i < this->player.airCannonProjectiles.size(); i++)
 	{
@@ -46,14 +60,14 @@ void Game::UpdateBullet()
 void Game::update()
 {
 	this->updatePollEvents();
-	this->UpdateBullet();
-	
+	this->updateBullet();
+	this->userInterface.update(this->player);
 	this->player.update(this->gamewindow);
 }
 
+
 void Game::renderBullet()
 {
-	
 		for (int i = 0; i < this->player.airCannonProjectiles.size(); i++)
 		{
 			gamewindow->draw(this->player.airCannonProjectiles[i]->airCannonSprite);
@@ -63,14 +77,14 @@ void Game::renderBullet()
 				this->player.airCannonProjectiles.erase(this->player.airCannonProjectiles.begin() + i);
 			}
 	}
-		std::cout << this->player.airCannonProjectiles.size() << std::endl;
+
 }
-
-
 
 void Game::render()
 {
 	this->gamewindow->clear();
+	this->gamewindow->draw(this->worldBackground);
+	this->userInterface.renderUI(this->gamewindow);
 	this->gamewindow->draw(player.playerSprite);
 	this->renderBullet();
 	this->gamewindow->display();
