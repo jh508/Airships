@@ -2,6 +2,8 @@
 
 #include "Player.h"
 #include "UserInterface.h"
+#include "ZapperEnemy.h"
+#include <vector>
 
 class Game {
 public:
@@ -18,9 +20,14 @@ public:
 	Player player;
 	UI userInterface;
 	AirCannon* airCannonPtr;
+	std::vector<ZapperEnemy*> zapperArray;
 	
 
 private:
+
+	// Private Variables
+	float zapperSpawnTimer;
+	float zapperRandomXPos;
 
 	// Private Resources
 	sf::RenderWindow* gamewindow;
@@ -34,14 +41,21 @@ private:
 	void initializeSprite();
 	void initializeWindow();
 
+	// Collision Methods
+	bool collisionIntersect();
+
+	// Zapper Methods
+	void spawnZapper();
 
 	// Update Methods
 	void updatePollEvents();
 	void updateBullet();
+	void updateZapper();
+
 
 	// Render Methods
 	void renderBullet();
-
+	void renderZapper();
 	
 
 };

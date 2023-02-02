@@ -5,6 +5,7 @@ void Game::initializeVariables()
 {
 	this->airCannonPtr = nullptr;
 	this->gamewindow = nullptr;
+	this->zapperSpawnTimer = 20.0f;
 
 }
 
@@ -22,6 +23,34 @@ void Game::initializeWindow()
 {
 	this->gamewindow = new sf::RenderWindow(sf::VideoMode(800, 800), "Game");
 	this->gamewindow->setFramerateLimit(144);
+}
+
+bool Game::collisionIntersect()
+{
+	for (int i = 0; i < zapperArray.size(); i++) {
+		if (this->player.playerSprite.getGlobalBounds().intersects(zapperArray[i]->zapperSprite.getGlobalBounds())) {
+			delete zapperArray[i];
+			zapperArray.erase(zapperArray.begin() + i);
+			this->player.lives -= 1;
+			return true;
+		}
+	}
+	return false;
+
+}
+
+void Game::spawnZapper()
+{
+	if (this->zapperArray.size() < 3 && zapperSpawnTimer <= 0)
+	{
+		this->zapperRandomXPos = rand() % 700;
+		ZapperEnemy* zapperEnemy = new ZapperEnemy(this->zapperRandomXPos);
+		this->zapperArray.push_back(zapperEnemy);
+		zapperSpawnTimer = 300.0f;
+	}
+	else {
+		zapperSpawnTimer--;
+	}
 }
 
 
@@ -49,8 +78,11 @@ void Game::updatePollEvents()
 	*/
 	while (this->gamewindow->pollEvent(event))
 	{
-		if (event.type == sf::Event::Closed)
+		if (event.type == sf::Event::Closed) 
+		{
 			this->gamewindow->close();
+		}
+
 	}
 }
 
@@ -67,6 +99,16 @@ void Game::updateBullet()
 	}
 }
 
+void Game::updateZapper()
+{
+	spawnZapper();
+	std::cout << this->zapperArray.size() << std::endl;
+
+	for (int i = 0; i < this->zapperArray.size(); i++) {
+		this->zapperArray[i]->update();
+	}
+}
+
 
 
 void Game::update()
@@ -79,6 +121,8 @@ void Game::update()
 
 	this->updatePollEvents();
 	this->updateBullet();
+	this->updateZapper();
+	this->collisionIntersect();
 	this->userInterface.update(this->player);
 	this->player.update(this->gamewindow);
 }
@@ -106,6 +150,21 @@ void Game::renderBullet()
 
 }
 
+void Game::renderZapper()
+{
+	for (int i = 0; i < this->zapperArray.size(); i++) {
+		this->gamewindow->draw(this->zapperArray[i]->zapperSprite);
+
+		std::cout << this->zapperArray[i]->zapperSprite.getPosition().x << std::endl;
+
+		if (this->zapperArray[i]->zapperSprite.getPosition().y < 0)
+		{
+			delete this->zapperArray[i];
+			this->zapperArray.erase(this->zapperArray.begin() + i);
+		}
+	}
+}
+
 void Game::render()
 {
 
@@ -119,6 +178,7 @@ void Game::render()
 	this->gamewindow->draw(this->worldBackground);
 	this->userInterface.renderUI(this->gamewindow);
 	this->renderBullet();
+	this->renderZapper();
 	this->gamewindow->draw(player.playerSprite);
 	this->gamewindow->display();
 

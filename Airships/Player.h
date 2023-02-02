@@ -15,8 +15,14 @@ public:
 
 	sf::Sprite playerSprite;
 
+	// Public Methods
 	void update(sf::RenderTarget* target);
 	void getPlayerPos();
+	void moveUp();
+	void moveDown();
+	void moveRight();
+	void moveLeft();
+	void shoot();
 
 	std::vector<AirCannon*> airCannonProjectiles;
 
@@ -29,11 +35,6 @@ private:
 	// initialization
 	void initializeTexture();
 	void initializeSprite();
-	void moveUp();
-	void moveDown();
-	void moveRight();
-	void moveLeft();
-	void shoot();
 	void updateInput(sf::RenderTarget* target);
 	void boundaryDetection(sf::RenderTarget* target);
 

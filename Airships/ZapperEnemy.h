@@ -7,6 +7,7 @@
 class ZapperEnemy {
 public:
 	ZapperEnemy();
+	ZapperEnemy(float x);
 	~ZapperEnemy();
 
 	void update();
@@ -18,7 +19,7 @@ private:
 
 	void initializeVariables();
 	void initializeTexture();
-	void initializeSprite();
+	void initializeSprite(float xPos);
 
 	sf::Texture zapperTexture;
 

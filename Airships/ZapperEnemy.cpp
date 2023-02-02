@@ -11,27 +11,34 @@ void ZapperEnemy::initializeTexture()
 	this->zapperTexture.loadFromFile("Sprites/zapper.png");
 }
 
-void ZapperEnemy::initializeSprite()
+void ZapperEnemy::initializeSprite(float xPos)
 {
 	this->zapperSprite.setTexture(this->zapperTexture);
-	this->zapperSprite.setOrigin(sf::Vector2f(-400, -600));
+	this->zapperSprite.setPosition(sf::Vector2f(xPos, 800));
 }
 
 ZapperEnemy::ZapperEnemy()
 {
+
+}
+
+ZapperEnemy::ZapperEnemy(float x)
+{
 	this->initializeVariables();
 	this->initializeTexture();
-	this->initializeSprite();
+	this->initializeSprite(x);
 }
 
 ZapperEnemy::~ZapperEnemy()
 {
-
+	
 }
 
 void ZapperEnemy::update()
 {
-	this->zapperSprite.move(sf::Vector2f(0.0f, -2.0f));
+	this->zapperSprite.move(sf::Vector2f(0.0, -2.0));
 }
+
+
 
 
