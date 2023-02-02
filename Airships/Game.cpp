@@ -102,7 +102,7 @@ void Game::updateBullet()
 void Game::updateZapper()
 {
 	spawnZapper();
-	std::cout << this->zapperArray.size() << std::endl;
+	
 
 	for (int i = 0; i < this->zapperArray.size(); i++) {
 		this->zapperArray[i]->update();
@@ -154,8 +154,6 @@ void Game::renderZapper()
 {
 	for (int i = 0; i < this->zapperArray.size(); i++) {
 		this->gamewindow->draw(this->zapperArray[i]->zapperSprite);
-
-		std::cout << this->zapperArray[i]->zapperSprite.getPosition().x << std::endl;
 
 		if (this->zapperArray[i]->zapperSprite.getPosition().y < 0)
 		{

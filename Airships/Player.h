@@ -28,23 +28,30 @@ public:
 
 	// Public variables
 	int lives;
+
 private:
 
-	void initializeVariables();
-
 	// initialization
+	void initializeVariables();
 	void initializeTexture();
 	void initializeSprite();
-	void updateInput(sf::RenderTarget* target);
+
+
+	// Private Methods
+	void updateInput();
 	void boundaryDetection(sf::RenderTarget* target);
+
+	// Sprite Manager
+	void updateTexture();
+	sf::Texture spriteTextureFull;
+	sf::Texture spriteTextureSlight;
+	sf::Texture spriteTextureLow;
 
 	AirCannon* airCannonPtr;
 
-
-	sf::Texture spriteTexture;
 	
 
-	// Variables
+	// Private Variables
 	float verticalVelocity;
 	float horizontalVelocity;
 	float playerXPos;

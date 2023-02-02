@@ -13,15 +13,22 @@ void Player::initializeVariables()
 
 void Player::initializeTexture()
 {
-	if (!this->spriteTexture.loadFromFile("\Sprites/MainShip.png")) {
+	if (!this->spriteTextureFull.loadFromFile("\Sprites/MainShip.png")) {
 		std::cout << "Error loading sprite: MainShip.png";
+	}
+	if (!this->spriteTextureSlight.loadFromFile("\Sprites/MainShipSlightDamage.png")) {
+		std::cout << "Error loading sprite: MainShipSlightDamage.png";
+	}
+	if (!this->spriteTextureLow.loadFromFile("\Sprites/MainShipLow.png")) {
+		std::cout << "Error loading sprite: MainShipLow.png";
 	}
 }
 
 void Player::initializeSprite()
 {
-	this->playerSprite.setTexture(this->spriteTexture);
+	this->playerSprite.setTexture(this->spriteTextureFull);
 	this->playerSprite.setScale(sf::Vector2f(2.0f, 2.0f));
+	this->playerSprite.setPosition(sf::Vector2f(400, 400));
 
 }
 
@@ -71,9 +78,19 @@ void Player::shoot()
 	}
 }
 
+void Player::updateTexture()
+{
+	if (this->lives == 2) {
+		this->playerSprite.setTexture(this->spriteTextureSlight);
+	}
+	if(this->lives == 1) {
+		this->playerSprite.setTexture(this->spriteTextureLow);
+	}
+}
 
 
-void Player::updateInput(sf::RenderTarget* target)
+
+void Player::updateInput()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		this->moveUp();
@@ -98,7 +115,6 @@ void Player::updateInput(sf::RenderTarget* target)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		this->shoot();
 	}
-
 }
 
 
@@ -138,12 +154,12 @@ void Player::boundaryDetection(sf::RenderTarget* target)
 
 void Player::update(sf::RenderTarget* target)
 {
-
 	this->boundaryDetection(target);
 	if (this->airCannonPtr != nullptr) {
 		this->airCannonPtr->update();
 	}
-	this->updateInput(target);
+	this->updateInput();
+	this->updateTexture();
 	
 }
 
