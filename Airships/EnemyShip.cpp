@@ -5,7 +5,7 @@ void EnemyShip::initializeVariables()
 {
 	
 	this->lives = 2;
-	this->verticalVelocity = 0.5f;
+	this->verticalVelocity = 1.0f;
 	this->shootCoolDown = 200.0f;
 }
 

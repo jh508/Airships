@@ -6,7 +6,7 @@ void Game::initializeVariables()
 	this->airCannonPtr = nullptr;
 	this->gamewindow = nullptr;
 	this->zapperSpawnTimer = 20.0f;
-	this->enemyShipSpawnTimer = 35.0f;
+	this->enemyShipSpawnTimer = 100.0f;
 }
 
 void Game::initializeTexture()
