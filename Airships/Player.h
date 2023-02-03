@@ -28,6 +28,7 @@ public:
 
 	// Public variables
 	int lives;
+	int score;
 
 private:
 

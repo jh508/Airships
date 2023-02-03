@@ -12,7 +12,6 @@ public:
 	void update();
 	
 	sf::Sprite airCannonSprite;
-	sf::Vector2f spawnLocation;
 	
 
 private:

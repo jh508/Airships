@@ -19,5 +19,7 @@ private:
 	sf::Sprite heartSprite;
 	sf::Texture heartTexture;
 	sf::Text livesText;
+	sf::Text scoreText;
+	sf::Text score;
 	sf::Font textFont;
 };

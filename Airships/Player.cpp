@@ -7,6 +7,7 @@ void Player::initializeVariables()
 	this->horizontalVelocity = 2.0f;
 	this->verticalVelocity = 3.0f;
 	this->lives = 3;
+	this->score = 0;
 	this->airCannonDelay = 30.0f;
 	this->airCannonPtr = nullptr;
 }

@@ -6,7 +6,7 @@ void Game::initializeVariables()
 	this->airCannonPtr = nullptr;
 	this->gamewindow = nullptr;
 	this->zapperSpawnTimer = 20.0f;
-
+	this->enemyShipSpawnTimer = 35.0f;
 }
 
 void Game::initializeTexture()
@@ -50,6 +50,19 @@ void Game::spawnZapper()
 	}
 	else {
 		zapperSpawnTimer--;
+	}
+}
+
+void Game::spawnEnemyShip()
+{
+	if (this->enemyShipArray.size() < 5 && this->enemyShipSpawnTimer <= 0) {
+		this->enemyShipRandomXPos = rand() % 700;
+		EnemyShip* enemyShip = new EnemyShip(this->enemyShipRandomXPos);
+		this->enemyShipArray.push_back(enemyShip);
+		this->enemyShipSpawnTimer = 150.0f;
+	}
+	else {
+		this->enemyShipSpawnTimer--;
 	}
 }
 
@@ -109,6 +122,15 @@ void Game::updateZapper()
 	}
 }
 
+void Game::updateEnemyShip()
+{
+	spawnEnemyShip();
+	std::cout << this->enemyShipArray.size() << std::endl;
+	for (int i = 0; i < this->enemyShipArray.size(); i++) {
+		this->enemyShipArray[i]->update(this->player);
+	}
+}
+
 
 
 void Game::update()
@@ -122,6 +144,7 @@ void Game::update()
 	this->updatePollEvents();
 	this->updateBullet();
 	this->updateZapper();
+	this->updateEnemyShip();
 	this->collisionIntersect();
 	this->userInterface.update(this->player);
 	this->player.update(this->gamewindow);
@@ -163,6 +186,19 @@ void Game::renderZapper()
 	}
 }
 
+void Game::renderEnemyShip()
+{
+	for (int i = 0; i < this->enemyShipArray.size(); i++)
+	{
+		this->gamewindow->draw(this->enemyShipArray[i]->enemyShipSprite);
+
+		if (this->enemyShipArray[i]->enemyShipSprite.getPosition().y > 800) {
+			delete this->enemyShipArray[i];
+			enemyShipArray.erase(this->enemyShipArray.begin() + i);
+		}
+	}
+}
+
 void Game::render()
 {
 
@@ -177,6 +213,7 @@ void Game::render()
 	this->userInterface.renderUI(this->gamewindow);
 	this->renderBullet();
 	this->renderZapper();
+	this->renderEnemyShip();
 	this->gamewindow->draw(player.playerSprite);
 	this->gamewindow->display();
 
