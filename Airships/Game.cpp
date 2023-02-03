@@ -35,6 +35,16 @@ bool Game::collisionIntersect()
 			return true;
 		}
 	}
+
+	for (int i = 0; i < this->enemyCannonArray.size(); i++) {
+		if (this->player.playerSprite.getGlobalBounds().intersects(this->enemyCannonArray[i]->enemyCannonSprite.getGlobalBounds())) {
+			delete this->enemyCannonArray[i];
+			this->enemyCannonArray.erase(this->enemyCannonArray.begin() + i);
+			this->player.lives -= 1;
+			return true;
+		}
+	}
+
 	return false;
 
 }
@@ -82,6 +92,14 @@ Game::~Game()
 }
 
 
+void Game::updateDeltaTime()
+{
+	/* Updates the deltaTime variable to create frame rate independant gameplay. (The time it takes to update and render one frame) */
+	this->deltaTime = this->deltaTimeClock.restart().asSeconds();
+
+	std::cout << this->deltaTime << std::endl;
+}
+
 void Game::updatePollEvents()
 {
 	/*
@@ -125,11 +143,20 @@ void Game::updateZapper()
 void Game::updateEnemyShip()
 {
 	spawnEnemyShip();
-	std::cout << this->enemyShipArray.size() << std::endl;
+	
 	for (int i = 0; i < this->enemyShipArray.size(); i++) {
-		this->enemyShipArray[i]->update(this->player);
+		this->enemyShipArray[i]->update(this->player, this->enemyCannonArray);
 	}
 }
+
+void Game::updateEnemyCannon()
+{
+	for (int i = 0; i < this->enemyCannonArray.size(); i++) {
+		this->enemyCannonArray[i]->update(this->player, this->deltaTime);
+	}
+}
+
+
 
 
 
@@ -140,11 +167,12 @@ void Game::update()
 
 		- Updates every frame.
 	*/
-
+	this->updateDeltaTime();
 	this->updatePollEvents();
 	this->updateBullet();
 	this->updateZapper();
 	this->updateEnemyShip();
+	this->updateEnemyCannon();
 	this->collisionIntersect();
 	this->userInterface.update(this->player);
 	this->player.update(this->gamewindow);
@@ -199,6 +227,24 @@ void Game::renderEnemyShip()
 	}
 }
 
+void Game::renderEnemyCannon()
+{
+	for (int i = 0; i < this->enemyCannonArray.size(); i++)
+	{
+		this->gamewindow->draw(this->enemyCannonArray[i]->enemyCannonSprite);
+
+		if (this->enemyCannonArray[i]->enemyCannonSprite.getPosition().y > 800 || this->enemyCannonArray[i]->enemyCannonSprite.getPosition().y < 0) {
+			delete this->enemyCannonArray[i];
+			this->enemyCannonArray.erase(this->enemyCannonArray.begin() + i);
+		}
+		else if (this->enemyCannonArray[i]->enemyCannonSprite.getPosition().x > 800 || this->enemyCannonArray[i]->enemyCannonSprite.getPosition().x < 0)
+		{
+			delete this->enemyCannonArray[i];
+			this->enemyCannonArray.erase(this->enemyCannonArray.begin() + i);
+		}
+	}
+}
+
 void Game::render()
 {
 
@@ -214,6 +260,7 @@ void Game::render()
 	this->renderBullet();
 	this->renderZapper();
 	this->renderEnemyShip();
+	this->renderEnemyCannon();
 	this->gamewindow->draw(player.playerSprite);
 	this->gamewindow->display();
 

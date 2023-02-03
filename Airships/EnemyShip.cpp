@@ -35,24 +35,29 @@ EnemyShip::~EnemyShip()
 	
 }
 
-void EnemyShip::shootPlayer(Player& player)
+void EnemyShip::shootPlayer(Player& player, std::vector<EnemyCannon*>& cannonVector)
 {
-	distanceToPlayer = sqrt(pow(this->enemyShipSprite.getPosition().x - player.playerSprite.getPosition().x, 2) + 
+	this->distanceToPlayer = sqrt(pow(this->enemyShipSprite.getPosition().x - player.playerSprite.getPosition().x, 2) +
 		pow(this->enemyShipSprite.getPosition().y - player.playerSprite.getPosition().y, 2));
 
-	if (distanceToPlayer < 400.0f && this->shootCoolDown <= 0)
-	{
-		AirCannon enemyProjectile;
-
-		enemyProjectile.airCannonSprite.setPosition(sf::Vector2f(this->enemyShipSprite.getPosition()));
+	if (this->distanceToPlayer < 700 && shootCoolDown <= 0) {
+		EnemyCannon* enemyCannon = new EnemyCannon(this->enemyShipSprite);
+		cannonVector.push_back(enemyCannon);
+		std::cout << "Size: " << cannonVector.size() << std::endl;
+		this->shootCoolDown += 500.0f;
 	}
+	else if (this->distanceToPlayer > 300)
+	{
+		this->shootCoolDown--;
+	}
+	
 	
 
 }
 
-void EnemyShip::update(Player& player)
+void EnemyShip::update(Player& player, std::vector<EnemyCannon*>& cannonVector)
 {
 	this->enemyShipSprite.move(sf::Vector2f(0, verticalVelocity));
-	shootPlayer(player);
+	this->shootPlayer(player, cannonVector);
 }
 

@@ -21,8 +21,11 @@ public:
 	Player player;
 	UI userInterface;
 	AirCannon* airCannonPtr;
+
+	// Public Containers
 	std::vector<ZapperEnemy*> zapperArray;
 	std::vector<EnemyShip*> enemyShipArray;
+	std::vector<EnemyCannon*> enemyCannonArray;
 	
 
 private:
@@ -32,6 +35,10 @@ private:
 	float zapperRandomXPos;
 	float enemyShipSpawnTimer;
 	float enemyShipRandomXPos;
+
+	// Delta Time variables
+	sf::Clock deltaTimeClock;
+	float deltaTime;
 
 	// Private Resources
 	sf::RenderWindow* gamewindow;
@@ -54,15 +61,18 @@ private:
 	void spawnEnemyShip();
 
 	// Update Methods
+	void updateDeltaTime();
 	void updatePollEvents();
 	void updateBullet();
 	void updateZapper();
 	void updateEnemyShip();
+	void updateEnemyCannon();
 
 	// Render Methods
 	void renderBullet();
 	void renderZapper();
 	void renderEnemyShip();
+	void renderEnemyCannon();
 	
 
 };

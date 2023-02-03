@@ -1,5 +1,7 @@
 #pragma once
 #include "Player.h"
+#include "EnemyCannon.h"
+#include <vector>
 
 class EnemyShip{
 public:
@@ -9,7 +11,7 @@ public:
 	// Public resources
 	sf::Sprite enemyShipSprite;
 
-	void update(Player& player);
+	void update(Player& player, std::vector<EnemyCannon*>& cannonVector);
 
 private:
 
@@ -17,7 +19,7 @@ private:
 	void initializeVariables();
 	void initializeTexture();
 	void initializeSprite(float xPos);
-	void shootPlayer(Player& player);
+	void shootPlayer(Player& player, std::vector<EnemyCannon*>& cannonVector);
 
 	// Private resources
 	sf::Texture enemyShipTexture;
@@ -27,6 +29,8 @@ private:
 	int lives;
 	float shootCoolDown;
 	float distanceToPlayer;
+
+	
 	
 
 };

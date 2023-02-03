@@ -14,13 +14,13 @@ void Player::initializeVariables()
 
 void Player::initializeTexture()
 {
-	if (!this->spriteTextureFull.loadFromFile("\Sprites/MainShip.png")) {
+	if (!this->spriteTextureFull.loadFromFile("Sprites/MainShip.png")) {
 		std::cout << "Error loading sprite: MainShip.png";
 	}
-	if (!this->spriteTextureSlight.loadFromFile("\Sprites/MainShipSlightDamage.png")) {
+	if (!this->spriteTextureSlight.loadFromFile("Sprites/MainShipSlightDamage.png")) {
 		std::cout << "Error loading sprite: MainShipSlightDamage.png";
 	}
-	if (!this->spriteTextureLow.loadFromFile("\Sprites/MainShipLow.png")) {
+	if (!this->spriteTextureLow.loadFromFile("Sprites/MainShipLow.png")) {
 		std::cout << "Error loading sprite: MainShipLow.png";
 	}
 }
