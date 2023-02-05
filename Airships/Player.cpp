@@ -121,6 +121,7 @@ void Player::updateInput()
 
 void Player::getPlayerPos()
 {
+	
 	playerXPos = this->playerSprite.getPosition().x;
 	playerYPos = this->playerSprite.getPosition().y;
 	std::cout << "X Position: " << playerXPos << " Y Position: " << playerYPos << std::endl;

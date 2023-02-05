@@ -45,6 +45,18 @@ bool Game::collisionIntersect()
 		}
 	}
 
+	for (int i = 0; i < this->enemyShipArray.size(); i++)
+	{
+		for (int j = 0; j < this->player.airCannonProjectiles.size(); j++)
+		{
+			if (this->enemyShipArray[i]->enemyShipSprite.getGlobalBounds().intersects(this->player.airCannonProjectiles[j]->airCannonSprite.getGlobalBounds()) && !this->enemyShipArray[i]->isDead()) {
+				delete this->player.airCannonProjectiles[j];
+				this->player.airCannonProjectiles.erase(this->player.airCannonProjectiles.begin() + j);
+				this->enemyShipArray[i]->lives--;
+			}
+		}
+	}
+
 	return false;
 
 }
@@ -218,10 +230,16 @@ void Game::renderEnemyShip()
 {
 	for (int i = 0; i < this->enemyShipArray.size(); i++)
 	{
-		this->gamewindow->draw(this->enemyShipArray[i]->enemyShipSprite);
 
-		if (this->enemyShipArray[i]->enemyShipSprite.getPosition().y > 800) {
-			delete this->enemyShipArray[i];
+		if (!this->enemyShipArray[i]->isDead()) {
+			this->gamewindow->draw(this->enemyShipArray[i]->enemyShipSprite);
+
+			if (this->enemyShipArray[i]->enemyShipSprite.getPosition().y > 800) {
+				delete this->enemyShipArray[i];
+				enemyShipArray.erase(this->enemyShipArray.begin() + i);
+			}
+		}
+		else if (this->enemyShipArray[i]->isDead()) {
 			enemyShipArray.erase(this->enemyShipArray.begin() + i);
 		}
 	}

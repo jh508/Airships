@@ -12,6 +12,8 @@ public:
 	sf::Sprite enemyShipSprite;
 
 	void update(Player& player, std::vector<EnemyCannon*>& cannonVector);
+	bool isDead();
+	int lives;
 
 private:
 
@@ -26,7 +28,6 @@ private:
 
 	// Private Variables
 	float verticalVelocity;
-	int lives;
 	float shootCoolDown;
 	float distanceToPlayer;
 

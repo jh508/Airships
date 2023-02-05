@@ -55,9 +55,20 @@ void EnemyShip::shootPlayer(Player& player, std::vector<EnemyCannon*>& cannonVec
 
 }
 
+bool EnemyShip::isDead()
+{
+	if (this->lives <= 0)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void EnemyShip::update(Player& player, std::vector<EnemyCannon*>& cannonVector)
 {
 	this->enemyShipSprite.move(sf::Vector2f(0, verticalVelocity));
 	this->shootPlayer(player, cannonVector);
+	this->isDead();
 }
 
