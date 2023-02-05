@@ -10,9 +10,7 @@ public:
 	~AirCannon();
 
 	void update();
-	
 	sf::Sprite airCannonSprite;
-	
 
 private:
 
@@ -23,7 +21,6 @@ private:
 
 	// Variables
 	float projectileSpeed;
-	
 	
 	sf::Texture airCannonTexture;
 };

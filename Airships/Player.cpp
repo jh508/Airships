@@ -15,13 +15,13 @@ void Player::initializeVariables()
 void Player::initializeTexture()
 {
 	if (!this->spriteTextureFull.loadFromFile("Sprites/MainShip.png")) {
-		std::cout << "Error loading sprite: MainShip.png";
+		throw "Error loading textures";
 	}
 	if (!this->spriteTextureSlight.loadFromFile("Sprites/MainShipSlightDamage.png")) {
-		std::cout << "Error loading sprite: MainShipSlightDamage.png";
+		throw "Error loading textures";
 	}
 	if (!this->spriteTextureLow.loadFromFile("Sprites/MainShipLow.png")) {
-		std::cout << "Error loading sprite: MainShipLow.png";
+		throw "Error loading textures";
 	}
 }
 
@@ -79,6 +79,13 @@ void Player::shoot()
 	}
 }
 
+bool Player::isDead()
+{
+	if (this->lives <= 0) { return true; }
+
+	return false;
+}
+
 void Player::updateTexture()
 {
 	if (this->lives == 2) {
@@ -109,24 +116,12 @@ void Player::updateInput()
 		this->moveRight();
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
-		this->getPlayerPos();
-	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		this->shoot();
 	}
 }
 
-
-void Player::getPlayerPos()
-{
-	
-	playerXPos = this->playerSprite.getPosition().x;
-	playerYPos = this->playerSprite.getPosition().y;
-	std::cout << "X Position: " << playerXPos << " Y Position: " << playerYPos << std::endl;
-
-}
 
 void Player::boundaryDetection(sf::RenderTarget* target)
 {

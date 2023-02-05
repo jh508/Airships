@@ -49,7 +49,7 @@ bool Game::collisionIntersect()
 	{
 		for (int j = 0; j < this->player.airCannonProjectiles.size(); j++)
 		{
-			if (this->enemyShipArray[i]->enemyShipSprite.getGlobalBounds().intersects(this->player.airCannonProjectiles[j]->airCannonSprite.getGlobalBounds()) && !this->enemyShipArray[i]->isDead()) {
+			if (this->enemyShipArray[i]->enemyShipSprite.getGlobalBounds().intersects(this->player.airCannonProjectiles[j]->airCannonSprite.getGlobalBounds()) && !this->enemyShipArray[i]->isDead(this->player)) {
 				delete this->player.airCannonProjectiles[j];
 				this->player.airCannonProjectiles.erase(this->player.airCannonProjectiles.begin() + j);
 				this->enemyShipArray[i]->lives--;
@@ -108,8 +108,6 @@ void Game::updateDeltaTime()
 {
 	/* Updates the deltaTime variable to create frame rate independant gameplay. (The time it takes to update and render one frame) */
 	this->deltaTime = this->deltaTimeClock.restart().asSeconds();
-
-	std::cout << this->deltaTime << std::endl;
 }
 
 void Game::updatePollEvents()
@@ -231,7 +229,7 @@ void Game::renderEnemyShip()
 	for (int i = 0; i < this->enemyShipArray.size(); i++)
 	{
 
-		if (!this->enemyShipArray[i]->isDead()) {
+		if (!this->enemyShipArray[i]->isDead(this->player)) {
 			this->gamewindow->draw(this->enemyShipArray[i]->enemyShipSprite);
 
 			if (this->enemyShipArray[i]->enemyShipSprite.getPosition().y > 800) {
@@ -239,7 +237,7 @@ void Game::renderEnemyShip()
 				enemyShipArray.erase(this->enemyShipArray.begin() + i);
 			}
 		}
-		else if (this->enemyShipArray[i]->isDead()) {
+		else if (this->enemyShipArray[i]->isDead(this->player)) {
 			enemyShipArray.erase(this->enemyShipArray.begin() + i);
 		}
 	}
@@ -272,16 +270,24 @@ void Game::render()
 		- Main method for rendering
 	*/
 
-	this->gamewindow->clear();
-	this->gamewindow->draw(this->worldBackground);
-	this->userInterface.renderUI(this->gamewindow);
-	this->renderBullet();
-	this->renderZapper();
-	this->renderEnemyShip();
-	this->renderEnemyCannon();
-	this->gamewindow->draw(player.playerSprite);
-	this->gamewindow->display();
+	if (!this->player.isDead()) {
 
+		this->gamewindow->clear();
+		this->gamewindow->draw(this->worldBackground);
+		this->userInterface.renderUI(this->gamewindow);
+		this->renderBullet();
+		this->renderZapper();
+		this->renderEnemyShip();
+		this->renderEnemyCannon();
+		this->gamewindow->draw(player.playerSprite);
+		this->gamewindow->display();
+	}
+	else
+	{
+		this->gamewindow->clear(sf::Color::Black);
+		this->userInterface.renderUI(this->gamewindow);
+		this->gamewindow->display();
+	}
 }
 
 bool Game::getIsWindowOpen()

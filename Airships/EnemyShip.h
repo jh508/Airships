@@ -12,7 +12,7 @@ public:
 	sf::Sprite enemyShipSprite;
 
 	void update(Player& player, std::vector<EnemyCannon*>& cannonVector);
-	bool isDead();
+	bool isDead(Player& player);
 	int lives;
 
 private:

@@ -20,6 +20,6 @@ private:
 	sf::Texture heartTexture;
 	sf::Text livesText;
 	sf::Text scoreText;
-	sf::Text score;
+	sf::Text endText;
 	sf::Font textFont;
 };

@@ -4,7 +4,9 @@
 
 void AirCannon::initializeTexture()
 {
-	this->airCannonTexture.loadFromFile("Sprites/airCannon.png");
+	if (!this->airCannonTexture.loadFromFile("Sprites/airCannon.png")) {
+		throw "Error loading textures";
+	}
 }
 
 void AirCannon::initializeSprite()
@@ -27,7 +29,7 @@ AirCannon::AirCannon()
 
 AirCannon::~AirCannon()
 {
-	std::cout << "Deleted" << std::endl;
+	
 }
 
 
@@ -35,3 +37,5 @@ void AirCannon::update()
 {
 	this->airCannonSprite.move(sf::Vector2f(0.0f, -projectileSpeed));
 }
+
+

@@ -17,12 +17,12 @@ public:
 
 	// Public Methods
 	void update(sf::RenderTarget* target);
-	void getPlayerPos();
 	void moveUp();
 	void moveDown();
 	void moveRight();
 	void moveLeft();
 	void shoot();
+	bool isDead();
 
 	std::vector<AirCannon*> airCannonProjectiles;
 

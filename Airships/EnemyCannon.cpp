@@ -9,9 +9,9 @@ void EnemyCannon::initializeVariables()
 
 void EnemyCannon::initializeTexture()
 {
-	if (!this->enemyCannonTexture.loadFromFile("Sprites/EnemyAirCannon.png")) {
-		std::cout << "Error loading EnemyAirCannon.png" << std::endl;
-	}
+		if (!this->enemyCannonTexture.loadFromFile("Sprites/EnemyAirCannon.png")) {
+			throw "Error loading textures";
+		}
 }
 
 void EnemyCannon::initializeSprite(sf::Sprite& enemyShip)
@@ -30,7 +30,7 @@ EnemyCannon::EnemyCannon(sf::Sprite& enemyShip)
 
 EnemyCannon::~EnemyCannon()
 {
-	std::cout << "This should delete" << std::endl;
+	
 }
 
 

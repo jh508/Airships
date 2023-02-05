@@ -11,7 +11,9 @@ void EnemyShip::initializeVariables()
 
 void EnemyShip::initializeTexture()
 {
-	this->enemyShipTexture.loadFromFile("Sprites/EnemyShip.png");
+	if (!this->enemyShipTexture.loadFromFile("Sprites/EnemyShip.png")) {
+		throw "Error loading textures";
+	};
 }
 
 void EnemyShip::initializeSprite(float xPos)
@@ -43,7 +45,6 @@ void EnemyShip::shootPlayer(Player& player, std::vector<EnemyCannon*>& cannonVec
 	if (this->distanceToPlayer < 700 && shootCoolDown <= 0) {
 		EnemyCannon* enemyCannon = new EnemyCannon(this->enemyShipSprite);
 		cannonVector.push_back(enemyCannon);
-		std::cout << "Size: " << cannonVector.size() << std::endl;
 		this->shootCoolDown += 500.0f;
 	}
 	else if (this->distanceToPlayer > 300)
@@ -55,10 +56,11 @@ void EnemyShip::shootPlayer(Player& player, std::vector<EnemyCannon*>& cannonVec
 
 }
 
-bool EnemyShip::isDead()
+bool EnemyShip::isDead(Player& player)
 {
 	if (this->lives <= 0)
 	{
+		player.score++;
 		return true;
 	}
 
@@ -69,6 +71,6 @@ void EnemyShip::update(Player& player, std::vector<EnemyCannon*>& cannonVector)
 {
 	this->enemyShipSprite.move(sf::Vector2f(0, verticalVelocity));
 	this->shootPlayer(player, cannonVector);
-	this->isDead();
+	this->isDead(player);
 }
 

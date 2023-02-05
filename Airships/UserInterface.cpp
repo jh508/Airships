@@ -3,13 +3,15 @@
 
 void UI::initializeTextures()
 {
-	this->heartTexture.loadFromFile("Sprites/heart.png");
+	if (!this->heartTexture.loadFromFile("Sprites/heart.png")) {
+		throw "Error loading textures";
+	}
 }
 
 void UI::initializeFont()
 {
 	if (!this->textFont.loadFromFile("Fonts/Akira.otf")) {
-		std::cout << "Error loading font" << std::endl;
+		throw "Error loading font";
 	}
 
 }
@@ -27,7 +29,13 @@ void UI::initializeText()
 	this->scoreText.setFillColor(sf::Color::White);
 	this->scoreText.setCharacterSize(20);
 	this->scoreText.setPosition(600, 55);
-	this->scoreText.setString("Score: " + score.getString());
+	this->scoreText.setString(scoreText.getString());
+
+	// End Text
+	this->endText.setFont(this->textFont);
+	this->endText.setFillColor(sf::Color::White);
+	this->endText.setCharacterSize(20);
+	this->endText.setPosition(400, 55);
 }
 
 void UI::initializeSprites()
@@ -51,8 +59,14 @@ UI::~UI()
 
 void UI::update(Player& player)
 {
-	this->livesText.setString(std::to_string(player.lives));
-	this->score.setString(std::to_string(player.score));
+	if (!player.isDead()) {
+		this->livesText.setString(std::to_string(player.lives));
+		this->scoreText.setString("Score: " + std::to_string(player.score));
+	}
+	else {
+		this->livesText.setString("0");
+	}
+
 }
 
 void UI::renderUI(sf::RenderTarget* window)
