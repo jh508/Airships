@@ -56,6 +56,7 @@ private:
 	// Collision Methods
 	bool collisionIntersect();
 
+
 	// Spawner Methods
 	void spawnZapper();
 	void spawnEnemyShip();

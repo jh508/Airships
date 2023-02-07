@@ -5,6 +5,7 @@
 void Player::initializeVariables()
 {
 	this->horizontalVelocity = 2.0f;
+	this->starterPos = sf::Vector2f(400, 400);
 	this->verticalVelocity = 3.0f;
 	this->lives = 3;
 	this->score = 0;
@@ -29,15 +30,15 @@ void Player::initializeSprite()
 {
 	this->playerSprite.setTexture(this->spriteTextureFull);
 	this->playerSprite.setScale(sf::Vector2f(2.0f, 2.0f));
-	this->playerSprite.setPosition(sf::Vector2f(400, 400));
+	this->playerSprite.setPosition(starterPos);
 
 }
 
 Player::Player()
 {
+	this->initializeVariables();
 	this->initializeTexture();
 	this->initializeSprite();
-	this->initializeVariables();
 
 }
 
@@ -77,6 +78,11 @@ void Player::shoot()
 	else {
 		airCannonDelay--;
 	}
+}
+
+sf::Vector2f Player::getStarterPos()
+{
+	return this->starterPos;
 }
 
 bool Player::isDead()

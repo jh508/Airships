@@ -22,6 +22,8 @@ public:
 	void moveRight();
 	void moveLeft();
 	void shoot();
+	void restartGame();
+	sf::Vector2f getStarterPos();
 	bool isDead();
 
 	std::vector<AirCannon*> airCannonProjectiles;
@@ -37,7 +39,7 @@ private:
 	void initializeTexture();
 	void initializeSprite();
 
-
+	sf::Vector2f starterPos;
 	// Private Methods
 	void updateInput();
 	void boundaryDetection(sf::RenderTarget* target);

@@ -61,6 +61,7 @@ bool Game::collisionIntersect()
 
 }
 
+
 void Game::spawnZapper()
 {
 	if (this->zapperArray.size() < 3 && zapperSpawnTimer <= 0)

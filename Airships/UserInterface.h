@@ -7,7 +7,6 @@ public:
 	~UI();
 
 	void update(Player& player);
-
 	void renderUI(sf::RenderTarget* window);
 
 private:

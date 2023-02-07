@@ -35,7 +35,7 @@ void UI::initializeText()
 	this->endText.setFont(this->textFont);
 	this->endText.setFillColor(sf::Color::White);
 	this->endText.setCharacterSize(20);
-	this->endText.setPosition(400, 55);
+	this->endText.setPosition(300, 400);
 }
 
 void UI::initializeSprites()
@@ -62,10 +62,11 @@ void UI::update(Player& player)
 	if (!player.isDead()) {
 		this->livesText.setString(std::to_string(player.lives));
 		this->scoreText.setString("Score: " + std::to_string(player.score));
-		this->endText.setString("Test");
+
 	}
 	else {
 		this->livesText.setString("0");
+		this->endText.setString("Thank you for playing!");
 	}
 
 }
@@ -75,5 +76,6 @@ void UI::renderUI(sf::RenderTarget* window)
 	window->draw(this->heartSprite);
 	window->draw(this->livesText);
 	window->draw(this->scoreText);
+	window->draw(this->endText);
 }
 
