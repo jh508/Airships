@@ -21,7 +21,7 @@ void Game::initializeSprite()
 
 void Game::initializeWindow()
 {
-	this->gamewindow = new sf::RenderWindow(sf::VideoMode(800, 800), "Game");
+	this->gamewindow = new sf::RenderWindow(sf::VideoMode(800, 800), "Airships", sf::Style::Close);
 	this->gamewindow->setFramerateLimit(144);
 }
 
