@@ -28,7 +28,7 @@ void Game::initializeWindow()
 bool Game::collisionIntersect()
 {
 	for (int i = 0; i < zapperArray.size(); i++) {
-		if (this->player.getPlayer().getGlobalBounds().intersects(zapperArray[i]->zapperSprite.getGlobalBounds())) {
+		if (this->player.getPlayer().getGlobalBounds().intersects(zapperArray[i]->getZapperSprite().getGlobalBounds())) {
 			delete zapperArray[i];
 			zapperArray.erase(zapperArray.begin() + i);
 			this->player.setLives(-1);
@@ -215,9 +215,9 @@ void Game::renderBullet()
 void Game::renderZapper()
 {
 	for (int i = 0; i < this->zapperArray.size(); i++) {
-		this->gamewindow->draw(this->zapperArray[i]->zapperSprite);
+		this->gamewindow->draw(this->zapperArray[i]->getZapperSprite());
 
-		if (this->zapperArray[i]->zapperSprite.getPosition().y < 0)
+		if (this->zapperArray[i]->getZapperSprite().getPosition().y < 0)
 		{
 			delete this->zapperArray[i];
 			this->zapperArray.erase(this->zapperArray.begin() + i);
