@@ -71,7 +71,7 @@ void Player::shoot()
 {
 	if (this->airCannonDelay <= 0) {
 		AirCannon* airCannonPtr = new AirCannon();
-		airCannonPtr->airCannonSprite.setPosition(this->playerSprite.getPosition().x + 25, this->playerSprite.getPosition().y);
+		airCannonPtr->setSpritePos(sf::Vector2f(this->playerSprite.getPosition().x + 25, this->playerSprite.getPosition().y));
 		airCannonProjectiles.push_back(airCannonPtr);
 		airCannonDelay += 30;
 	}
@@ -80,9 +80,34 @@ void Player::shoot()
 	}
 }
 
+sf::Sprite Player::getPlayer()
+{
+	return this->playerSprite;
+}
+
 sf::Vector2f Player::getStarterPos()
 {
 	return this->starterPos;
+}
+
+int Player::getScore()
+{
+	return this->score;
+}
+
+void Player::setScore(int newScore)
+{
+	this->score += newScore;
+}
+
+int Player::getLives()
+{
+	return this->lives;
+}
+
+void Player::setLives(int newLives)
+{
+	this->lives += newLives;
 }
 
 bool Player::isDead()

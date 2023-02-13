@@ -60,8 +60,8 @@ UI::~UI()
 void UI::update(Player& player)
 {
 	if (!player.isDead()) {
-		this->livesText.setString(std::to_string(player.lives));
-		this->scoreText.setString("Score: " + std::to_string(player.score));
+		this->livesText.setString(std::to_string(player.getLives()));
+		this->scoreText.setString("Score: " + std::to_string(player.getScore()));
 
 	}
 	else {

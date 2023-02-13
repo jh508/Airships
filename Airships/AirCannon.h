@@ -10,17 +10,23 @@ public:
 	~AirCannon();
 
 	void update();
-	sf::Sprite airCannonSprite;
+
+	//	Getters and Setters
+	sf::Sprite getSprite();
+	void setSpritePos(sf::Vector2f pos);
+
 
 private:
 
-	//Initialization
+	//	Initialization
 	void initializeTexture();
 	void initializeSprite();
 	void initializeVariables();
 
-	// Variables
+	//	Variables
 	float projectileSpeed;
-	
+
+	//	Sprite and Texture
+	sf::Sprite airCannonSprite;
 	sf::Texture airCannonTexture;
 };

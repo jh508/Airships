@@ -9,8 +9,8 @@ public:
 
 	void update(Player& player, float deltaTime);
 
-	sf::Sprite enemyCannonSprite;
-
+	//	Getters and Setters
+	sf::Sprite getSprite();
 
 private:
 
@@ -19,7 +19,7 @@ private:
 	void initializeSprite(sf::Sprite& enemyShip);
 	void initializeVariables();
 
-
+	sf::Sprite enemyCannonSprite;
 	// Variables
 	float projectileSpeed;
 	float projectileLifeTime;

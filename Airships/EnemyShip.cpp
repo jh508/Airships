@@ -1,5 +1,5 @@
 #include "EnemyShip.h"
-#include <iostream>
+
 
 void EnemyShip::initializeVariables()
 {
@@ -37,10 +37,25 @@ EnemyShip::~EnemyShip()
 	
 }
 
+sf::Sprite EnemyShip::getEnemyShip()
+{
+	return this->enemyShipSprite;
+}
+
+int EnemyShip::getEnemyShipLives()
+{
+	return this->lives;
+}
+
+void EnemyShip::setEnemyShipLives(int newLives)
+{
+	this->lives += newLives;
+}
+
 void EnemyShip::shootPlayer(Player& player, std::vector<EnemyCannon*>& cannonVector)
 {
-	this->distanceToPlayer = sqrt(pow(this->enemyShipSprite.getPosition().x - player.playerSprite.getPosition().x, 2) +
-		pow(this->enemyShipSprite.getPosition().y - player.playerSprite.getPosition().y, 2));
+	this->distanceToPlayer = sqrt(pow(this->enemyShipSprite.getPosition().x - player.getPlayer().getPosition().x, 2) +
+		pow(this->enemyShipSprite.getPosition().y - player.getPlayer().getPosition().y, 2));
 
 	if (this->distanceToPlayer < 700 && shootCoolDown <= 0) {
 		EnemyCannon* enemyCannon = new EnemyCannon(this->enemyShipSprite);
@@ -51,16 +66,13 @@ void EnemyShip::shootPlayer(Player& player, std::vector<EnemyCannon*>& cannonVec
 	{
 		this->shootCoolDown--;
 	}
-	
-	
-
 }
 
 bool EnemyShip::isDead(Player& player)
 {
 	if (this->lives <= 0)
 	{
-		player.score++;
+		player.setScore(1);
 		return true;
 	}
 

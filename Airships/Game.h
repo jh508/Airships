@@ -16,16 +16,6 @@ public:
 	bool getIsWindowOpen();
 	void update();
 	void render();
-
-	// Public Resources
-	Player player;
-	UI userInterface;
-	AirCannon* airCannonPtr;
-
-	// Public Containers
-	std::vector<ZapperEnemy*> zapperArray;
-	std::vector<EnemyShip*> enemyShipArray;
-	std::vector<EnemyCannon*> enemyCannonArray;
 	
 
 private:
@@ -75,5 +65,13 @@ private:
 	void renderEnemyShip();
 	void renderEnemyCannon();
 	
+	// Private References
+	Player player;
+	UI userInterface;
+	AirCannon* airCannonPtr;
 
+	// Private Containers
+	std::vector<ZapperEnemy*> zapperArray;
+	std::vector<EnemyShip*> enemyShipArray;
+	std::vector<EnemyCannon*> enemyCannonArray;
 };

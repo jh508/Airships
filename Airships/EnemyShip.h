@@ -8,12 +8,15 @@ public:
 	EnemyShip(float xPos);
 	~EnemyShip();
 
-	// Public resources
-	sf::Sprite enemyShipSprite;
+	//	Getters and Setters
+	sf::Sprite getEnemyShip();
+	int getEnemyShipLives();
+	void setEnemyShipLives(int newLives);
+
 
 	void update(Player& player, std::vector<EnemyCannon*>& cannonVector);
 	bool isDead(Player& player);
-	int lives;
+
 
 private:
 
@@ -25,11 +28,13 @@ private:
 
 	// Private resources
 	sf::Texture enemyShipTexture;
+	sf::Sprite enemyShipSprite;
 
 	// Private Variables
 	float verticalVelocity;
 	float shootCoolDown;
 	float distanceToPlayer;
+	int lives;
 
 	
 	

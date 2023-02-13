@@ -39,6 +39,13 @@ void ZapperEnemy::update()
 	this->zapperSprite.move(sf::Vector2f(0.0, -2.0));
 }
 
+sf::Sprite ZapperEnemy::getZapperSprite()
+{
+	return this->zapperSprite;
+}
+
+
+
 
 
 

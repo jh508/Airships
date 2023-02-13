@@ -28,19 +28,19 @@ void Game::initializeWindow()
 bool Game::collisionIntersect()
 {
 	for (int i = 0; i < zapperArray.size(); i++) {
-		if (this->player.playerSprite.getGlobalBounds().intersects(zapperArray[i]->zapperSprite.getGlobalBounds())) {
+		if (this->player.getPlayer().getGlobalBounds().intersects(zapperArray[i]->zapperSprite.getGlobalBounds())) {
 			delete zapperArray[i];
 			zapperArray.erase(zapperArray.begin() + i);
-			this->player.lives -= 1;
+			this->player.setLives(-1);
 			return true;
 		}
 	}
 
 	for (int i = 0; i < this->enemyCannonArray.size(); i++) {
-		if (this->player.playerSprite.getGlobalBounds().intersects(this->enemyCannonArray[i]->enemyCannonSprite.getGlobalBounds())) {
+		if (this->player.getPlayer().getGlobalBounds().intersects(this->enemyCannonArray[i]->getSprite().getGlobalBounds())) {
 			delete this->enemyCannonArray[i];
 			this->enemyCannonArray.erase(this->enemyCannonArray.begin() + i);
-			this->player.lives -= 1;
+			this->player.setLives(-1);
 			return true;
 		}
 	}
@@ -49,10 +49,10 @@ bool Game::collisionIntersect()
 	{
 		for (int j = 0; j < this->player.airCannonProjectiles.size(); j++)
 		{
-			if (this->enemyShipArray[i]->enemyShipSprite.getGlobalBounds().intersects(this->player.airCannonProjectiles[j]->airCannonSprite.getGlobalBounds()) && !this->enemyShipArray[i]->isDead(this->player)) {
+			if (this->enemyShipArray[i]->getEnemyShip().getGlobalBounds().intersects(this->player.airCannonProjectiles[j]->getSprite().getGlobalBounds()) && !this->enemyShipArray[i]->isDead(this->player)) {
 				delete this->player.airCannonProjectiles[j];
 				this->player.airCannonProjectiles.erase(this->player.airCannonProjectiles.begin() + j);
-				this->enemyShipArray[i]->lives--;
+				this->enemyShipArray[i]->setEnemyShipLives(-1);
 			}
 		}
 	}
@@ -202,9 +202,9 @@ void Game::renderBullet()
 
 		for (int i = 0; i < this->player.airCannonProjectiles.size(); i++)
 		{
-			gamewindow->draw(this->player.airCannonProjectiles[i]->airCannonSprite);
+			gamewindow->draw(this->player.airCannonProjectiles[i]->getSprite());
 
-			if (this->player.airCannonProjectiles[i]->airCannonSprite.getPosition().y < 0) {
+			if (this->player.airCannonProjectiles[i]->getSprite().getPosition().y < 0) {
 				delete this->player.airCannonProjectiles[i];
 				this->player.airCannonProjectiles.erase(this->player.airCannonProjectiles.begin() + i);
 			}
@@ -231,9 +231,9 @@ void Game::renderEnemyShip()
 	{
 
 		if (!this->enemyShipArray[i]->isDead(this->player)) {
-			this->gamewindow->draw(this->enemyShipArray[i]->enemyShipSprite);
+			this->gamewindow->draw(this->enemyShipArray[i]->getEnemyShip());
 
-			if (this->enemyShipArray[i]->enemyShipSprite.getPosition().y > 800) {
+			if (this->enemyShipArray[i]->getEnemyShip().getPosition().y > 800) {
 				delete this->enemyShipArray[i];
 				enemyShipArray.erase(this->enemyShipArray.begin() + i);
 			}
@@ -248,13 +248,13 @@ void Game::renderEnemyCannon()
 {
 	for (int i = 0; i < this->enemyCannonArray.size(); i++)
 	{
-		this->gamewindow->draw(this->enemyCannonArray[i]->enemyCannonSprite);
+		this->gamewindow->draw(this->enemyCannonArray[i]->getSprite());
 
-		if (this->enemyCannonArray[i]->enemyCannonSprite.getPosition().y > 800 || this->enemyCannonArray[i]->enemyCannonSprite.getPosition().y < 0) {
+		if (this->enemyCannonArray[i]->getSprite().getPosition().y > 800 || this->enemyCannonArray[i]->getSprite().getPosition().y < 0) {
 			delete this->enemyCannonArray[i];
 			this->enemyCannonArray.erase(this->enemyCannonArray.begin() + i);
 		}
-		else if (this->enemyCannonArray[i]->enemyCannonSprite.getPosition().x > 800 || this->enemyCannonArray[i]->enemyCannonSprite.getPosition().x < 0)
+		else if (this->enemyCannonArray[i]->getSprite().getPosition().x > 800 || this->enemyCannonArray[i]->getSprite().getPosition().x < 0)
 		{
 			delete this->enemyCannonArray[i];
 			this->enemyCannonArray.erase(this->enemyCannonArray.begin() + i);
@@ -280,7 +280,7 @@ void Game::render()
 		this->renderZapper();
 		this->renderEnemyShip();
 		this->renderEnemyCannon();
-		this->gamewindow->draw(player.playerSprite);
+		this->gamewindow->draw(player.getPlayer());
 		this->gamewindow->display();
 	}
 	else

@@ -1,6 +1,5 @@
 #include "Player.h"
 #include "AirCannon.h"
-#include <iostream>
 
 void AirCannon::initializeTexture()
 {
@@ -32,10 +31,19 @@ AirCannon::~AirCannon()
 	
 }
 
-
 void AirCannon::update()
 {
 	this->airCannonSprite.move(sf::Vector2f(0.0f, -projectileSpeed));
+}
+
+sf::Sprite AirCannon::getSprite()
+{
+	return this->airCannonSprite;
+}
+
+void AirCannon::setSpritePos(sf::Vector2f pos)
+{
+	this->airCannonSprite.setPosition(pos);
 }
 
 

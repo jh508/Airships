@@ -1,5 +1,4 @@
 #include "EnemyCannon.h"
-#include <iostream>
 
 void EnemyCannon::initializeVariables()
 {
@@ -30,10 +29,13 @@ EnemyCannon::EnemyCannon(sf::Sprite& enemyShip)
 
 EnemyCannon::~EnemyCannon()
 {
-	
+
 }
 
-
+sf::Sprite EnemyCannon::getSprite()
+{
+	return this->enemyCannonSprite;
+}
 
 void EnemyCannon::update(Player& player, float deltaTime)
 {

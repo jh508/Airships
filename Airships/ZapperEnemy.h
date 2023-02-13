@@ -12,15 +12,19 @@ public:
 
 	void update();
 
+	//	Getters and Setters
+	sf::Sprite getZapperSprite();
 
-	sf::Sprite zapperSprite;
 
 private:
 
+	//	Initialization
 	void initializeVariables();
 	void initializeTexture();
 	void initializeSprite(float xPos);
 
+	//	Sprites
+	sf::Sprite zapperSprite;
 	sf::Texture zapperTexture;
 
 };
